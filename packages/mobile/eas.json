@@ -9,11 +9,13 @@
         "buildType": "apk"
       },
       "node": "20.19.0",
-      "installCommand": "npm install --install-strategy=nested --legacy-peer-deps"
+      "env": {
+        "NPM_CONFIG_LEGACY_PEER_DEPS": "true",
+        "NPM_CONFIG_INSTALL_STRATEGY": "nested"
+      }
     },
     "production": {
-      "node": "20.19.0",
-      "installCommand": "npm install --install-strategy=nested --legacy-peer-deps"
+      "node": "20.19.0"
     }
   }
 }
