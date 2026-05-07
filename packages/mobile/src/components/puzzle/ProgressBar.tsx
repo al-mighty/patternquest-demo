@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Animated, StyleSheet } from 'react-native';
 import { theme } from '../../theme';
-import { DIFFICULTY } from '@logiclike/shared';
+import { DIFFICULTY } from '../../shared';
 
 interface Props {
   running: boolean;

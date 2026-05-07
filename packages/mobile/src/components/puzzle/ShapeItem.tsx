@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef } from 'react';
 import { Animated, StyleSheet } from 'react-native';
 import Svg, { Circle, Rect, Polygon, Path } from 'react-native-svg';
-import type { Shape } from '@logiclike/shared';
+import type { Shape } from '../../shared';
 
 interface Props {
   shape: Shape;

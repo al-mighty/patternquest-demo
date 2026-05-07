@@ -1,4 +1,4 @@
-import type { GameSession, LeaderboardEntry } from '@logiclike/shared';
+import type { GameSession, LeaderboardEntry } from '../shared';
 
 const BASE = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
 

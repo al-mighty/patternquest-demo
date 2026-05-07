@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import { View, Pressable, Animated, StyleSheet, Text } from 'react-native';
 import * as Haptics from 'expo-haptics';
-import type { Shape } from '@logiclike/shared';
+import type { Shape } from '../../shared';
 import { ShapeItem } from './ShapeItem';
 import { theme } from '../../theme';
 

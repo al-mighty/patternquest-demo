@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Pressable, Animated } from 'react-native';
-import type { GameSession } from '@logiclike/shared';
+import type { GameSession } from '../shared';
 import { PuzzleBoard } from '../components/puzzle/PuzzleBoard';
 import { OptionsList } from '../components/puzzle/OptionsList';
 import { ProgressBar } from '../components/puzzle/ProgressBar';

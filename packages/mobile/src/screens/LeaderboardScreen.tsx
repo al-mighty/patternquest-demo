@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Pressable } from 'react-native';
-import type { LeaderboardEntry } from '@logiclike/shared';
+import type { LeaderboardEntry } from '../shared';
 import { connectWs, disconnectWs } from '../services/ws';
 import { api } from '../services/api';
 import { theme } from '../theme';

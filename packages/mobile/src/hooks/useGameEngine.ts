@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
-import type { GameSession } from '@logiclike/shared';
-import { generatePuzzle, DIFFICULTY } from '@logiclike/shared';
+import type { GameSession } from '../shared';
+import { generatePuzzle, DIFFICULTY } from '../shared';
 import { api } from '../services/api';
 
 const MAX_LIVES = 3;

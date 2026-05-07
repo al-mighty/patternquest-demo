@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
-    "@logiclike/shared": "*",
     "@shopify/flash-list": "2.0.2",
     "expo": "~54.0.0",
     "expo-av": "~16.0.8",

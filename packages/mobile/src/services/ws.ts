@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import type { LeaderboardEntry } from '@logiclike/shared';
+import type { LeaderboardEntry } from '../shared';
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
 

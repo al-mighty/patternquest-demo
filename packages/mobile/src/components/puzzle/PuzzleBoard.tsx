@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import type { Puzzle } from '@logiclike/shared';
+import type { Puzzle } from '../../shared';
 import { ShapeItem } from './ShapeItem';
 import { theme } from '../../theme';
 
