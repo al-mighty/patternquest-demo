@@ -1,0 +1,15 @@
+{
+  "name": "logiclike-demo",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "backend": "npm run dev -w packages/backend",
+    "mobile": "npm run start -w packages/mobile",
+    "test": "jest --config packages/shared/jest.config.js"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.0",
+    "@types/jest": "^29.5.0"
+  }
+}
