@@ -8,10 +8,12 @@
       "android": {
         "buildType": "apk"
       },
-      "node": "20.19.0"
+      "node": "20.19.0",
+      "installCommand": "npm install --install-strategy=nested --legacy-peer-deps"
     },
     "production": {
-      "node": "20.19.0"
+      "node": "20.19.0",
+      "installCommand": "npm install --install-strategy=nested --legacy-peer-deps"
     }
   }
 }

@@ -5,6 +5,14 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "patternquest",
-    "plugins": []
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "2db904bf-5fb0-47f1-92d6-d04083e4172c"
+      }
+    },
+    "android": {
+      "package": "com.almightybeast.patternquest"
+    }
   }
 }
