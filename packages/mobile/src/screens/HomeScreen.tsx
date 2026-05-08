@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet, Animated, Image, Platform, Linking } from 'react-native';
 import { theme } from '../theme';
-import { t } from '../i18n';
+import { useI18n } from '../i18n';
 
 const avatar = require('../../assets/avatar.jpg');
 const isWeb = Platform.OS === 'web';
@@ -22,6 +22,7 @@ interface Props {
 }
 
 export function HomeScreen({ onStart }: Props) {
+  const { t, locale, toggleLocale } = useI18n();
   const [name, setName] = useState('');
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
@@ -39,6 +40,9 @@ export function HomeScreen({ onStart }: Props) {
 
   return (
     <View style={styles.container}>
+      <Pressable style={styles.langToggle} onPress={toggleLocale}>
+        <Text style={styles.langText}>{locale === 'en' ? 'RU' : 'EN'}</Text>
+      </Pressable>
       <Animated.View style={[styles.avatarWrap, { transform: [{ scale: avatarScale }] }]}>
         <Image source={avatar} style={styles.avatar} />
       </Animated.View>
@@ -92,7 +96,9 @@ export function HomeScreen({ onStart }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.colors.bg, justifyContent: 'center', alignItems: 'center', padding: theme.spacing.xl },
+  container: { flex: 1, backgroundColor: theme.colors.bg, justifyContent: 'center', alignItems: 'center', padding: theme.spacing.xl, position: 'relative' as const },
+  langToggle: { position: 'absolute' as const, top: 50, right: 20, paddingVertical: 6, paddingHorizontal: 12, borderWidth: 1, borderColor: 'rgba(255,255,255,0.15)', borderRadius: 6 },
+  langText: { color: theme.colors.textDim, fontSize: 12, fontWeight: '600' as const, letterSpacing: 1 },
   avatarWrap: {
     width: 120, height: 120, borderRadius: 60, overflow: 'hidden',
     borderWidth: 2, borderColor: theme.colors.accent, marginBottom: theme.spacing.lg,

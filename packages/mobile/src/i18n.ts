@@ -1,3 +1,4 @@
+import { useState, useCallback } from 'react';
 import { Platform, NativeModules } from 'react-native';
 
 const strings = {
@@ -55,24 +56,57 @@ const strings = {
     back: '← Назад',
     home: '← Главная',
   },
-};
+} as const;
 
-function getDeviceLocale(): string {
+function getDeviceLocale(): 'en' | 'ru' {
   try {
     if (Platform.OS === 'web') {
-      return navigator.language?.split('-')[0] || 'en';
+      return navigator.language?.split('-')[0] === 'ru' ? 'ru' : 'en';
     }
     if (Platform.OS === 'ios') {
       const settings = NativeModules.SettingsManager?.settings;
-      return settings?.AppleLocale?.split('_')[0] || settings?.AppleLanguages?.[0]?.split('-')[0] || 'en';
+      const lang = settings?.AppleLocale?.split('_')[0] || settings?.AppleLanguages?.[0]?.split('-')[0];
+      return lang === 'ru' ? 'ru' : 'en';
     }
     if (Platform.OS === 'android') {
-      return NativeModules.I18nManager?.localeIdentifier?.split('_')[0] || 'en';
+      const lang = NativeModules.I18nManager?.localeIdentifier?.split('_')[0];
+      return lang === 'ru' ? 'ru' : 'en';
     }
   } catch {}
   return 'en';
 }
 
-const locale = getDeviceLocale();
-export const t = locale === 'ru' ? strings.ru : strings.en;
-export const isRu = locale === 'ru';
+// Simple global state for locale
+let _locale: 'en' | 'ru' = getDeviceLocale();
+let _listeners: Array<() => void> = [];
+
+export function getLocale() { return _locale; }
+export function getT() { return strings[_locale]; }
+
+// Static export for non-component code
+export let t = strings[_locale];
+
+export function useI18n() {
+  const [locale, setLocaleState] = useState(_locale);
+
+  const toggleLocale = useCallback(() => {
+    _locale = _locale === 'en' ? 'ru' : 'en';
+    t = strings[_locale];
+    setLocaleState(_locale);
+    _listeners.forEach(fn => fn());
+  }, []);
+
+  // Subscribe to external changes
+  useState(() => {
+    const update = () => setLocaleState(_locale);
+    _listeners.push(update);
+    return () => { _listeners = _listeners.filter(fn => fn !== update); };
+  });
+
+  return {
+    t: strings[locale],
+    locale,
+    toggleLocale,
+    isRu: locale === 'ru',
+  };
+}
