@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet, Animated, Image, Platform, Linking } from 'react-native';
 import { theme } from '../theme';
+import { t } from '../i18n';
 
 const avatar = require('../../assets/avatar.jpg');
 const isWeb = Platform.OS === 'web';
@@ -44,13 +45,13 @@ export function HomeScreen({ onStart }: Props) {
 
       <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}>
         <Text style={styles.title}>Pattern<Text style={styles.accent}>Quest</Text></Text>
-        <Text style={styles.subtitle}>Find the next shape in the sequence</Text>
+        <Text style={styles.subtitle}>{t.subtitle}</Text>
       </Animated.View>
 
       <View style={styles.form}>
         <TextInput
           style={styles.input}
-          placeholder="Your nickname"
+          placeholder={t.nickname}
           placeholderTextColor={theme.colors.textDim}
           value={name}
           onChangeText={setName}
@@ -62,26 +63,26 @@ export function HomeScreen({ onStart }: Props) {
           onPress={() => name.trim() && onStart(name.trim())}
           disabled={!name.trim()}
         >
-          <Text style={styles.buttonText}>START GAME</Text>
+          <Text style={styles.buttonText}>{t.start}</Text>
         </Pressable>
       </View>
 
       <View style={styles.portfolioWrap}>
         <Pressable style={styles.portfolioBtn} onPress={() => trackAndOpen(PORTFOLIO_URL, 'portfolio_click')}>
-          <Text style={styles.portfolioText}>My Portfolio</Text>
+          <Text style={styles.portfolioText}>{t.portfolio}</Text>
           <Text style={styles.portfolioArrow}> &rarr;</Text>
         </Pressable>
       </View>
 
       {isWeb && (
         <View style={styles.webBanner}>
-          <Text style={styles.bannerText}>Also available as a native app</Text>
+          <Text style={styles.bannerText}>{t.webBanner}</Text>
           <View style={styles.bannerLinks}>
             <Pressable style={styles.bannerBtn} onPress={() => trackAndOpen(APK_URL, 'apk_download')}>
-              <Text style={styles.bannerBtnText}>Download APK</Text>
+              <Text style={styles.bannerBtnText}>{t.downloadApk}</Text>
             </Pressable>
             <Pressable style={styles.bannerBtnGhost} onPress={() => trackAndOpen(GITHUB_URL, 'source_code')}>
-              <Text style={styles.bannerGhostText}>Source code</Text>
+              <Text style={styles.bannerGhostText}>{t.sourceCode}</Text>
             </Pressable>
           </View>
         </View>

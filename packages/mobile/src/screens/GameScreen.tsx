@@ -5,6 +5,7 @@ import { PuzzleBoard } from '../components/puzzle/PuzzleBoard';
 import { OptionsList } from '../components/puzzle/OptionsList';
 import { ProgressBar } from '../components/puzzle/ProgressBar';
 import { theme } from '../theme';
+import { t } from '../i18n';
 
 interface Props {
   session: GameSession;
@@ -36,19 +37,19 @@ export function GameScreen({ session, lastResult, lives, loading, onAnswer, onTi
         </Pressable>
         <View style={styles.stats}>
           <Text style={styles.score}>{session.score}</Text>
-          <Text style={styles.scoreLabel}>SCORE</Text>
+          <Text style={styles.scoreLabel}>{t.score}</Text>
         </View>
         <View style={styles.stats}>
           <Text style={styles.streak}>{session.streak}🔥</Text>
-          <Text style={styles.scoreLabel}>STREAK</Text>
+          <Text style={styles.scoreLabel}>{t.streak}</Text>
         </View>
         <View style={styles.stats}>
           <Text style={styles.lives}>{'❤️'.repeat(lives)}{'🖤'.repeat(3 - lives)}</Text>
-          <Text style={styles.scoreLabel}>LIVES</Text>
+          <Text style={styles.scoreLabel}>{t.lives}</Text>
         </View>
         <View style={styles.stats}>
           <Text style={styles.difficulty}>Lv.{session.currentPuzzle.difficulty}</Text>
-          <Text style={styles.scoreLabel}>LEVEL</Text>
+          <Text style={styles.scoreLabel}>{t.level}</Text>
         </View>
       </View>
 
@@ -56,7 +57,7 @@ export function GameScreen({ session, lastResult, lives, loading, onAnswer, onTi
 
       {lastResult !== null && (
         <View style={[styles.result, lastResult ? styles.resultCorrect : styles.resultWrong]}>
-          <Text style={styles.resultText}>{lastResult ? '✓ Correct!' : '✗ Wrong!'}</Text>
+          <Text style={styles.resultText}>{lastResult ? `✓ ${t.correct}` : `✗ ${t.wrong}`}</Text>
         </View>
       )}
 

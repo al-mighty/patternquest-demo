@@ -4,6 +4,7 @@ import type { LeaderboardEntry } from '../shared';
 import { connectWs, disconnectWs } from '../services/ws';
 import { api } from '../services/api';
 import { theme } from '../theme';
+import { t } from '../i18n';
 
 interface Props {
   onBack: () => void;
@@ -22,9 +23,9 @@ export function LeaderboardScreen({ onBack }: Props) {
     <View style={styles.container}>
       <View style={styles.header}>
         <Pressable onPress={onBack} style={styles.backBtn}>
-          <Text style={styles.backText}>← Back</Text>
+          <Text style={styles.backText}>{t.back}</Text>
         </Pressable>
-        <Text style={styles.title}>Leaderboard</Text>
+        <Text style={styles.title}>{t.leaderboard}</Text>
         <View style={styles.spacer} />
       </View>
       <FlatList
@@ -37,7 +38,7 @@ export function LeaderboardScreen({ onBack }: Props) {
             <Text style={styles.score}>{item.score}</Text>
           </View>
         )}
-        ListEmptyComponent={<Text style={styles.empty}>No scores yet. Be the first!</Text>}
+        ListEmptyComponent={<Text style={styles.empty}>{t.noScores}</Text>}
       />
     </View>
   );

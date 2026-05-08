@@ -8,6 +8,7 @@ import { GameOverScreen } from './src/screens/GameOverScreen';
 import { LeaderboardScreen } from './src/screens/LeaderboardScreen';
 import { PerformanceOverlay } from './src/components/common/PerformanceOverlay';
 import { theme } from './src/theme';
+import { t } from './src/i18n';
 
 type Screen = 'home' | 'game' | 'gameover' | 'leaderboard';
 
@@ -70,7 +71,7 @@ export default function App() {
           <>
             <HomeScreen onStart={handleStart} />
             <Pressable style={styles.leaderboardBtn} onPress={() => setScreen('leaderboard')}>
-              <Text style={styles.leaderboardText}>🏆 Leaderboard</Text>
+              <Text style={styles.leaderboardText}>{t.leaderboardIcon}</Text>
             </Pressable>
           </>
         )}

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, Animated } from 'react-native';
 import { api } from '../services/api';
 import { theme } from '../theme';
+import { t } from '../i18n';
 
 interface Props {
   score: number;
@@ -36,41 +37,41 @@ export function GameOverScreen({ score, sessionId, onPlayAgain, onHome, onLeader
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.card, { opacity: fadeAnim, transform: [{ scale: scaleAnim }] }]}>
-        <Text style={styles.title}>Game Over</Text>
-        <Text style={styles.scoreLabel}>FINAL SCORE</Text>
+        <Text style={styles.title}>{t.gameOver}</Text>
+        <Text style={styles.scoreLabel}>{t.finalScore}</Text>
         <Text style={styles.score}>{score}</Text>
 
         {stats && (
           <View style={styles.statsGrid}>
             <View style={styles.statItem}>
               <Text style={styles.statValue}>{stats.totalCorrect}/{stats.totalAnswers}</Text>
-              <Text style={styles.statLabel}>CORRECT</Text>
+              <Text style={styles.statLabel}>{t.correctLabel}</Text>
             </View>
             <View style={styles.statItem}>
               <Text style={styles.statValue}>{stats.accuracy}%</Text>
-              <Text style={styles.statLabel}>ACCURACY</Text>
+              <Text style={styles.statLabel}>{t.accuracy}</Text>
             </View>
             <View style={styles.statItem}>
               <Text style={styles.statValue}>{stats.maxStreak}</Text>
-              <Text style={styles.statLabel}>BEST STREAK</Text>
+              <Text style={styles.statLabel}>{t.bestStreak}</Text>
             </View>
             <View style={styles.statItem}>
               <Text style={styles.statValue}>Lv.{stats.finalLevel}</Text>
-              <Text style={styles.statLabel}>LEVEL</Text>
+              <Text style={styles.statLabel}>{t.level}</Text>
             </View>
           </View>
         )}
 
         <Pressable style={styles.primaryBtn} onPress={onPlayAgain}>
-          <Text style={styles.primaryText}>PLAY AGAIN</Text>
+          <Text style={styles.primaryText}>{t.playAgain}</Text>
         </Pressable>
 
         <Pressable style={styles.secondaryBtn} onPress={onLeaderboard}>
-          <Text style={styles.secondaryText}>🏆 Leaderboard</Text>
+          <Text style={styles.secondaryText}>{t.leaderboardIcon}</Text>
         </Pressable>
 
         <Pressable style={styles.secondaryBtn} onPress={onHome}>
-          <Text style={styles.secondaryText}>← Home</Text>
+          <Text style={styles.secondaryText}>{t.home}</Text>
         </Pressable>
       </Animated.View>
     </View>
