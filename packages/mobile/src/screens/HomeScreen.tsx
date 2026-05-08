@@ -6,6 +6,15 @@ const avatar = require('../../assets/avatar.jpg');
 const isWeb = Platform.OS === 'web';
 const APK_URL = 'https://cheslav.space/patternquest.apk';
 const GITHUB_URL = 'https://github.com/al-mighty/patternquest-demo';
+const PORTFOLIO_URL = 'https://cheslav.space';
+const YM_ID = 109033343;
+
+function trackAndOpen(url: string, goal: string) {
+  if (isWeb && typeof window !== 'undefined' && (window as any).ym) {
+    (window as any).ym(YM_ID, 'reachGoal', goal, { url });
+  }
+  Linking.openURL(url);
+}
 
 interface Props {
   onStart: (nickname: string) => void;
@@ -57,14 +66,21 @@ export function HomeScreen({ onStart }: Props) {
         </Pressable>
       </View>
 
+      <View style={styles.portfolioWrap}>
+        <Pressable style={styles.portfolioBtn} onPress={() => trackAndOpen(PORTFOLIO_URL, 'portfolio_click')}>
+          <Text style={styles.portfolioText}>My Portfolio</Text>
+          <Text style={styles.portfolioArrow}> &rarr;</Text>
+        </Pressable>
+      </View>
+
       {isWeb && (
         <View style={styles.webBanner}>
           <Text style={styles.bannerText}>Also available as a native app</Text>
           <View style={styles.bannerLinks}>
-            <Pressable style={styles.bannerBtn} onPress={() => Linking.openURL(APK_URL)}>
+            <Pressable style={styles.bannerBtn} onPress={() => trackAndOpen(APK_URL, 'apk_download')}>
               <Text style={styles.bannerBtnText}>Download APK</Text>
             </Pressable>
-            <Pressable style={styles.bannerBtnGhost} onPress={() => Linking.openURL(GITHUB_URL)}>
+            <Pressable style={styles.bannerBtnGhost} onPress={() => trackAndOpen(GITHUB_URL, 'source_code')}>
               <Text style={styles.bannerGhostText}>Source code</Text>
             </Pressable>
           </View>
@@ -97,6 +113,10 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: { opacity: 0.4 },
   buttonText: { color: theme.colors.bg, fontSize: theme.font.mono, fontWeight: '700', letterSpacing: 2 },
+  portfolioWrap: { marginTop: 20, alignItems: 'center' },
+  portfolioBtn: { flexDirection: 'row', alignItems: 'center', paddingVertical: 8, paddingHorizontal: 16 },
+  portfolioText: { color: theme.colors.accent, fontSize: 14, fontWeight: '500' },
+  portfolioArrow: { color: theme.colors.accent, fontSize: 14 },
   webBanner: {
     marginTop: 32, paddingTop: 24, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.08)',
     alignItems: 'center', width: '100%', maxWidth: 320,
