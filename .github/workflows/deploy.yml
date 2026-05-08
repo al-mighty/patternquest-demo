@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  deploy:
+  deploy-backend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -40,3 +40,44 @@ jobs:
           sleep 3
           docker logs cheslav-patternquest 2>&1 | tail -5
           EOF
+
+  deploy-web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install mobile deps
+        working-directory: packages/mobile
+        run: npm ci
+
+      - name: Build web
+        working-directory: packages/mobile
+        run: npx expo export --platform web --output-dir dist
+
+      - name: Patch index.html
+        working-directory: packages/mobile/dist
+        run: |
+          sed -i 's|src="/_expo/|src="_expo/|g' index.html
+          python3 -c "
+          p = 'index.html'
+          h = open(p).read()
+          ym = '<script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,\"script\",\"https://mc.yandex.ru/metrika/tag.js?id=109033343\",\"ym\");ym(109033343,\"init\",{clickmap:true,trackLinks:true,accurateTrackBounce:true});</script>'
+          h = h.replace('</head>', ym + '\n  </head>')
+          open(p, 'w').write(h)
+          "
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy web to VPS
+        run: |
+          rsync -avz --delete -e "ssh -i ~/.ssh/deploy_key" \
+            packages/mobile/dist/ root@${{ secrets.VPS_HOST }}:/opt/cheslav/game/
