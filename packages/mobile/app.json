@@ -5,14 +5,22 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "patternquest",
+    "icon": "./assets/icon.png",
     "plugins": [],
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
     "extra": {
       "eas": {
         "projectId": "2db904bf-5fb0-47f1-92d6-d04083e4172c"
       }
     },
     "android": {
-      "package": "com.almightybeast.patternquest"
+      "package": "com.almightybeast.patternquest",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0a0e1a"
+      }
     }
   }
 }
